@@ -1,0 +1,22 @@
+.glowny-kontener{
+    background-color: #92A9BD;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+
+}
+h1{
+    font-weight: 800;
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+h2{
+    text-align: center;
+    font-size: 36px;
+}
+.carousel-img{
+    height: 30rem;
+}
