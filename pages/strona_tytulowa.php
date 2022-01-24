@@ -19,7 +19,7 @@
     <!-- ------------------------------------------------------------------------------------------------------------------------ -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a href="strona_tytulowa.html">
+        <a href="strona_tytulowa.php">
           <img class="logo" src="../images/logo_biblioteka.PNG" style="width:300px; height:80px;">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -29,10 +29,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item navpage">
-              <a class="nav-link active" href="strona_tytulowa.html">Aktualności</a>
+              <a class="nav-link active" href="strona_tytulowa.php">Aktualności</a>
             </li>
             <li class="nav-item navpage_katalog">
-              <a class="nav-link active" href="katalog_ksiazek.html">Katalog książek</a>
+              <a class="nav-link active" href="katalog_ksiazek.php">Katalog książek</a>
             </li>
             <li class="nav-item navpage">
               <a class="nav-link active" href="o_nas.html">O nas</a>
@@ -55,6 +55,15 @@
     <!-- ------------------------------------------------------------------------------------------------------------------------ -->
   </div>
 
+  <?php
+  session_start();
+  if (isset($_SESSION['user']))
+  {
+    
+    echo $_SESSION['user'];
+  }
+  ?>
+
   <section>
     <img class="mySlides" src="../images/slajder-1.jpg" style="width:100%">
     <img class="mySlides" src="../images/slajder1-1.jpg" style="width:100%">
@@ -74,7 +83,38 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <!-- ------------------------------------------------------------------------------------------------------------------------ -->
+  <?php
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "library";
 
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT  * FROM Article
+        ORDER BY articleId DESC
+        LIMIT 3";
+        $result = $conn->query($sql);
+        
+        while($row = $result->fetch_assoc()) {
+                echo "<div class='article-div'";
+                    //id ksiazki
+                    echo "<h1>".$row["title"]."</h1><br>";
+                    echo "<h2>".$row["subtitle"]."</h2><br>";
+                    echo "<form action='../scripts/artykul.php' method='get'>";
+                    echo "<input type='hidden' name='article_id' value='".$row['articleId']."'>";
+                    echo '<button type="submit" class="btn btn-primary">Czytaj dalej</button>';
+                    echo "</form>";
+                echo "</div>";
+        }
+        
+        $conn->close();
+  ?>
   <!-- Footer strony -->
   <footer class="site-footer">
     <div class="container">
