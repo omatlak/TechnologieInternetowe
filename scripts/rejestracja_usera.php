@@ -15,7 +15,10 @@
         $_POST = array();
         //przekierowanie do tego samego formularza z alertem
         // header("Location: new_user.php");
-        echo "rekord istnieje";
+        echo '<script>
+        alert("Ten login jest już w użyciu");
+        location="../pages/rejestracja.html";
+        </script>';
       }
     else {
         $user_login=$_POST['frm_login'];
@@ -26,7 +29,9 @@
         //wyczyszczenie tablicy $post
         $_POST = array();
         //przekierowanie do logowania
-        // header("Location: glowna.php");
-        echo "powinienem dodać";
+        echo '<script>
+        alert("Zarejestrowano pomyślnie");
+        location="../pages/logowanie.html";
+        </script>';
       }
       $conn->close();

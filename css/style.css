@@ -137,22 +137,7 @@
   width:34px;
   font-size:14px
 }
-.social-icons a.facebook:hover
-{
-  background-color:#3b5998
-}
-.social-icons a.twitter:hover
-{
-  background-color:#00aced
-}
-.social-icons a.linkedin:hover
-{
-  background-color:#007bb6
-}
-.social-icons a.dribbble:hover
-{
-  background-color:#ea4c89
-}
+
 @media (max-width:767px)
 {
   .social-icons li.title
@@ -169,7 +154,7 @@
 }
 .navpage_katalog{
   font-size:22px;
-  width:350px;
+  width:22rem;
 }
 .navpage_login{
  text-align: right;
@@ -180,4 +165,27 @@
   position:relative;
   left: 300px;
  }
-
+h1{
+  font-weight: 800;
+    font-size: 36px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-left: 2rem;
+    margin-top: 4rem;
+    margin-right: 4rem;
+}
+h2{
+  font-weight: 800;
+    font-size: 18px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-left: 2rem;
+    margin-right: 4rem;
+    font-style:italic;
+}
+.read_more{
+ margin-left: 2rem;
+}
+hr{
+  border-top: 4px solid #737373;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}

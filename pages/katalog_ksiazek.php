@@ -39,19 +39,30 @@
               <a class="nav-link active" href="katalog_ksiazek.php">Katalog książek</a>
             </li>
             <li class="nav-item navpage">
-              <a class="nav-link active" href="o_nas.html">O nas</a>
+              <a class="nav-link active" href="o_nas.php">O nas</a>
             </li>
             <li class="nav-item navpage">
-              <a class="nav-link active" href="kontakt.html">Kontakt</a>
+              <a class="nav-link active" href="kontakt.php">Kontakt</a>
             </li>
-            <form class="container-fluid justify-content-start navpage_login  navpage_register">
+            <?php
+            session_start();
+            if (!isset($_SESSION['user_id'])){
+            echo '<form class="container-fluid justify-content-start navpage_login  navpage_register">
               <a href="logowanie.html">
                 <button class="btn btn-outline-danger me-2  navpage" type="button">Logowanie</button>
               </a>
               <a href="rejestracja.html">
                 <button class="btn btn-outline-danger me-2  navpage" type="button">Rejestracja</button>
               </a>
-            </form>
+            </form>';}
+            else{
+              echo '<form class="container-fluid justify-content-start navpage_login  navpage_register">
+              <a href="../scripts/wylogowanie.php">
+                <button class="btn btn-outline-danger me-2  navpage" type="button">Wyloguj</button>
+              </a>
+            </form>';
+            }
+            ?>
           </ul>
         </div>
       </div>
@@ -61,10 +72,6 @@
     <div class="col-lg-6 col-md-9 col-sm-12 glowny-kontener">
         <h1>Książki dostępne w bibliotece:</h1>   
     <?php
-
-        session_start();
-
-
 
         $servername = "localhost";
         $username = "root";
@@ -78,7 +85,8 @@
         die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "SELECT * FROM Book";
+        $sql = "SELECT B.* FROM Book B LEFT JOIN Borrow BO on B.BookId=BO.BookId
+        WHERE CURDATE() not between IFNULL(startingDate,'2000-01-01') AND IFNULL(endingDate,'2000-01-01')";
         $result = $conn->query($sql);
         echo "<table class='styled-table'>";
                 echo "<thead>";
@@ -94,15 +102,21 @@
         while($row = $result->fetch_assoc()) {
                 echo "<tr>";
                     //id ksiazki
-                    echo "<td>".$row["bookId"]."</td>";
+                    echo "<td class='bookId'>".$row["bookId"]."</td>";
                     //autor
-                    echo "<td>".$row["author"]."</td>";
+                    echo "<td class='author'>".$row["author"]."</td>";
                     //tytul
-                    echo "<td>".$row["title"]."</td>";
+                    echo "<td class='title'>".$row["title"]."</td>";
                     // gatunek
-                    echo "<td>".$row["genre"]."</td>";
+                    echo "<td class-='genre'>".$row["genre"]."</td>";
                     //przycisk do wypozyczenia
-                    echo "<td><button onclick='openForm()'><i class='fas fa-book-open'></i></button></td>";
+                    if (isset($_SESSION['user_id'])){
+                    echo "<td><button class=borrow onclick='openForm()'><i class='fas fa-book-open'></i></button></td>";
+                    }
+                    else{
+                      echo "<td>Musisz być zalogowany żeby <br> 
+                      móc rezerwować książki.</td>";
+                    }
                 echo "</tr>";
         }
         echo "</tbody>";
@@ -112,16 +126,17 @@
     </div>
     <div class="loginPopup">
       <div class="formPopup" id="popupForm">
-       <form method=post action=../scripts/rezerwacja.php class ="formContainer">
+       <form method=get action=../scripts/rezerwacja.php class ="formContainer">
           <h2>Rezerwacja książki</h2>
-          <label for="book_id">
-          <strong>Id rezerwowanej książki:</strong>
-         <label for="borrow_date">
-            <strong>Data od której książka ma być zarezerwowana:</strong>
-          </label>
-          <input type="date" id="borrow_date" name="borrow_date" required>
-          <button type="submit" class="btn">Rezerwacja</button>
-          <button type="button" class="btn cancel" onclick="closeForm()">Anuluj</button>
+          <label for="book_author">
+          <strong>Autor:</strong>
+          <input type="text" id="book_author" name="book_author" readonly>
+          <label for="book_title">
+          <strong>Tytuł książki:</strong>
+          <input type="text" id="book_title" name="book_title" readonly>
+          <input type="hidden" id="book_id" name="book_id" readonly>
+          <button type="submit" class="btn">Potwierdzenie rezerwacji</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Anuluj rezerwacje</button>
         </form>
       </div>
     </div>
@@ -133,8 +148,20 @@
         document.getElementById("popupForm").style.display = "none";
       }
     </script>
-    <!-- Footer strony -->
-  <footer class="site-footer">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(".borrow").click(function() {
+  var $row = $(this).closest("tr");    // Find the row
+    var $bookid = $row.find(".bookId").text(); // Find the text
+    document.getElementById("book_id").value = $bookid;
+    var $title = $row.find(".title").text(); // Find the text
+    document.getElementById("book_title").value = $title;
+    var $author = $row.find(".author").text(); // Find the text
+    document.getElementById("book_author").value = $author;
+});
+</script>
+   <!-- Footer strony -->
+   <footer class="site-footer">
     <div class="container">
       <div class="row">
         <div class="col-sm-12 col-md-6">
@@ -147,10 +174,10 @@
         <div class="col-xs-6 col-md-3">
           <h6>Ważne linki</h6>
           <ul class="footer-links">
-            <li><a href="">Aktualności</a></li>
-            <li><a href="">Katalog książek</a></li>
-            <li><a href="o_nas.html">O nas</a></li>
-            <li><a href="">Kontakt</a></li>
+            <li><a href="strona_tytulowa.php">Aktualności</a></li>
+            <li><a href="katalog_ksiazek.php">Katalog książek</a></li>
+            <li><a href="o_nas.php">O nas</a></li>
+            <li><a href="kontakt.php">Kontakt</a></li>
           </ul>
         </div>
       </div>

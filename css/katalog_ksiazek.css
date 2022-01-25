@@ -15,6 +15,7 @@ body{
     border-color: black;
 }
 h1{
+    margin-top: 1rem;
     font-weight: 800;
     font-size: 50px;
     text-align: center;
@@ -31,7 +32,7 @@ h1{
     width: 100%;
 }
 .styled-table thead tr {
-    background-color: #1A374D;
+    background-color: #295679;
     color: #ffffff;
     text-align: left;
 }
@@ -80,7 +81,7 @@ h1{
   .formContainer {
     max-width: 300px;
     padding: 20px;
-    background-color: #1A374D;
+    background-color: #92A9BD;
   }
   .formContainer input[type=text],
   .formContainer input[type=password] {
@@ -111,4 +112,7 @@ h1{
   .formContainer .btn:hover,
   .openButton:hover {
     opacity: 1;
+  }
+  input {
+    text-align: center;
   }

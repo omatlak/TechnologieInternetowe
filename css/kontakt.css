@@ -46,6 +46,7 @@ h1{
     transition: max-height 0.2s ease-out;
     margin-left: auto;
     margin-right: auto;
+    text-align: left;
   }
   .user_rules:after {
     content: '\02795'; /* Unicode character for "plus" sign (+) */
@@ -60,12 +61,16 @@ h1{
   }
 
   .glowny-kontener{
-    background-color: #C9CCD5;
+    background-color: #92A9BD;
     margin-left: auto;
     margin-right: auto;
     padding: 1rem;
+    border-color:white;
+    border-style: solid;
+    border-width: thick;
+    margin-bottom: 4rem;
 }
-li {
+ol {
     text-align: left;
     font-size: 12px;
     font-family: Georgia, 'Times New Roman', Times, serif;

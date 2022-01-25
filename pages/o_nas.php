@@ -35,19 +35,30 @@
             <a class="nav-link active" href="katalog_ksiazek.php">Katalog książek</a>
           </li>
           <li class="nav-item navpage">
-            <a class="nav-link active" href="o_nas.html">O nas</a>
+            <a class="nav-link active" href="o_nas.php">O nas</a>
           </li>
           <li class="nav-item navpage">
-            <a class="nav-link active" href="kontakt.html">Kontakt</a>
+            <a class="nav-link active" href="kontakt.php">Kontakt</a>
           </li>
-        <form class="container-fluid justify-content-start navpage_login  navpage_register">
-          <a href="logowanie.html">
-            <button class="btn btn-outline-danger me-2  navpage" type="button">Logowanie</button>
-          </a>
-          <a href="rejestracja.html"> 
-            <button class="btn btn-outline-danger me-2  navpage" type="button">Rejestracja</button>
-          </a> 
-          </form>
+          <?php
+            session_start();
+            if (!isset($_SESSION['user_id'])){
+            echo '<form class="container-fluid justify-content-start navpage_login  navpage_register">
+              <a href="logowanie.html">
+                <button class="btn btn-outline-danger me-2  navpage" type="button">Logowanie</button>
+              </a>
+              <a href="rejestracja.html">
+                <button class="btn btn-outline-danger me-2  navpage" type="button">Rejestracja</button>
+              </a>
+            </form>';}
+            else{
+              echo '<form class="container-fluid justify-content-start navpage_login  navpage_register">
+              <a href="../scripts/wylogowanie.php">
+                <button class="btn btn-outline-danger me-2  navpage" type="button">Wyloguj</button>
+              </a>
+            </form>';
+            }
+            ?>
         </ul>
       </div>
     </div>
@@ -119,39 +130,38 @@
 
       </div>
     </div> 
-    <!-- Footer strony -->
-    <footer class="site-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12 col-md-6">
-            <h6>Biblioteka czynna</h6>
-            <p class="text-justify">Poniedziałek - Piątek 8:00 - 17:00 </br>
-          Sobota 8:00 - 12:00</br>
-      Niedziela Nieczynne.</p>
-          </div>
-
-          <div class="col-xs-6 col-md-3">
-            <h6>Ważne linki</h6>
-            <ul class="footer-links">
-              <li><a href="">Aktualności</a></li>
-              <li><a href="">Katalog książek</a></li>
-              <li><a href="o_nas.html">O nas</a></li>
-              <li><a href="">Kontakt</a></li>
-            </ul>
-          </div>
+   <!-- Footer strony -->
+   <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <h6>Biblioteka czynna</h6>
+          <p class="text-justify">Poniedziałek - Piątek 8:00 - 17:00 </br>
+            Sobota 8:00 - 12:00</br>
+            Niedziela Nieczynne.</p>
         </div>
-        <hr>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-sm-6 col-xs-12">
-            <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by 
-         Pelan & Matlak.
-            </p>
-          </div>
+
+        <div class="col-xs-6 col-md-3">
+          <h6>Ważne linki</h6>
+          <ul class="footer-links">
+            <li><a href="strona_tytulowa.php">Aktualności</a></li>
+            <li><a href="katalog_ksiazek.php">Katalog książek</a></li>
+            <li><a href="o_nas.php">O nas</a></li>
+            <li><a href="kontakt.php">Kontakt</a></li>
+          </ul>
         </div>
       </div>
-</footer>
-
+      <hr>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-sm-6 col-xs-12">
+          <p class="copyright-text">Copyright &copy; 2022 All Rights Reserved by
+            Pelan & Matlak.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

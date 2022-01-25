@@ -20,15 +20,16 @@
         $_SESSION['user_id'] = $row[0];
         //wyczyszczenie tablicy $post
         $_POST = array();
-        echo "powinienem zalogować";
-        echo "User: ".$_SESSION['user']." ID: ".$_SESSION['user_id'];    
+        header("Location: ../pages/strona_tytulowa.php");    
       }
     else {
         //wyczyszczenie tablicy $post
         $_POST = array();
         //przekierowanie do logowania
-        // header("Location: logowanie.html");
-        echo "powinienem nie logować";
-        
+        echo '<script>
+        alert("Błędne dane logowania");
+        location="../pages/logowanie.html";
+        </script>';
+        // header("Location: ../pages/logowanie.html");  
       }
       $conn->close();

@@ -18,10 +18,12 @@
     
     </head>
     <body>
-        <form method=post action=../scripts/logowanie_usera.php> 
-            <input name=frm_login>Login</br>
-            <input type="password" name=frm_pass>Haslo</br>
+        <form class="box" method=post action=../scripts/logowanie_usera.php> 
+            <h1>Logowanie</h1><br>
+            <input type="text" name=frm_login placeholder="Login">
+            <input type="password" name=frm_pass placeholder="Hasło">
             <input type=submit value=Zaloguj>
+            <a href="../pages/strona_tytulowa.php" class="button">Powrót</a>
         </form>
-</body>
+    </body>
 </html>

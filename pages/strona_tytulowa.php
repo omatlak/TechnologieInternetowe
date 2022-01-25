@@ -35,19 +35,30 @@
               <a class="nav-link active" href="katalog_ksiazek.php">Katalog książek</a>
             </li>
             <li class="nav-item navpage">
-              <a class="nav-link active" href="o_nas.html">O nas</a>
+              <a class="nav-link active" href="o_nas.php">O nas</a>
             </li>
             <li class="nav-item navpage">
-              <a class="nav-link active" href="kontakt.html">Kontakt</a>
+              <a class="nav-link active" href="kontakt.php">Kontakt</a>
             </li>
-            <form class="container-fluid justify-content-start navpage_login  navpage_register">
+            <?php
+            session_start();
+            if (!isset($_SESSION['user_id'])){
+            echo '<form class="container-fluid justify-content-start navpage_login  navpage_register">
               <a href="logowanie.html">
                 <button class="btn btn-outline-danger me-2  navpage" type="button">Logowanie</button>
               </a>
               <a href="rejestracja.html">
                 <button class="btn btn-outline-danger me-2  navpage" type="button">Rejestracja</button>
               </a>
-            </form>
+            </form>';}
+            else{
+              echo '<form class="container-fluid justify-content-start navpage_login  navpage_register">
+              <a href="../scripts/wylogowanie.php">
+                <button class="btn btn-outline-danger me-2  navpage" type="button">Wyloguj</button>
+              </a>
+            </form>';
+            }
+            ?>
           </ul>
         </div>
       </div>
@@ -55,14 +66,6 @@
     <!-- ------------------------------------------------------------------------------------------------------------------------ -->
   </div>
 
-  <?php
-  session_start();
-  if (isset($_SESSION['user']))
-  {
-    
-    echo $_SESSION['user'];
-  }
-  ?>
 
   <section>
     <img class="mySlides" src="../images/slajder-1.jpg" style="width:100%">
@@ -102,13 +105,14 @@
         $result = $conn->query($sql);
         
         while($row = $result->fetch_assoc()) {
-                echo "<div class='article-div'";
+                echo "<div class='article-div'>";
                     //id ksiazki
-                    echo "<h1>".$row["title"]."</h1><br>";
-                    echo "<h2>".$row["subtitle"]."</h2><br>";
+                    echo "<h1>".$row["title"]."</h1>";
+                    echo "<h2>".$row["subtitle"]."</h2>";
                     echo "<form action='../scripts/artykul.php' method='get'>";
                     echo "<input type='hidden' name='article_id' value='".$row['articleId']."'>";
-                    echo '<button type="submit" class="btn btn-primary">Czytaj dalej</button>';
+                    echo '<button type="submit" class="btn btn-primary read_more">Czytaj dalej</button>';
+                    echo "<hr>";
                     echo "</form>";
                 echo "</div>";
         }
@@ -129,10 +133,10 @@
         <div class="col-xs-6 col-md-3">
           <h6>Ważne linki</h6>
           <ul class="footer-links">
-            <li><a href="">Aktualności</a></li>
-            <li><a href="">Katalog książek</a></li>
-            <li><a href="o_nas.html">O nas</a></li>
-            <li><a href="">Kontakt</a></li>
+            <li><a href="strona_tytulowa.php">Aktualności</a></li>
+            <li><a href="katalog_ksiazek.php">Katalog książek</a></li>
+            <li><a href="o_nas.php">O nas</a></li>
+            <li><a href="kontakt.php">Kontakt</a></li>
           </ul>
         </div>
       </div>
