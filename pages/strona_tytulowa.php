@@ -6,8 +6,7 @@
   <!-- ------------------------------------------------------------------------------------------------------------------------ -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="../css/style.css">
   <!-- ------------------------------------------------------------------------------------------------------------------------ -->
   <title>Biblioteka</title>
@@ -22,8 +21,7 @@
         <a href="strona_tytulowa.php">
           <img class="logo" src="../images/logo_biblioteka.PNG" style="width:300px; height:80px;">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -42,16 +40,16 @@
             </li>
             <?php
             session_start();
-            if (!isset($_SESSION['user_id'])){
-            echo '<form class="container-fluid justify-content-start navpage_login  navpage_register">
+            if (!isset($_SESSION['user_id'])) {
+              echo '<form class="container-fluid justify-content-start navpage_login  navpage_register">
               <a href="logowanie.html">
                 <button class="btn btn-outline-danger me-2  navpage" type="button">Logowanie</button>
               </a>
               <a href="rejestracja.html">
                 <button class="btn btn-outline-danger me-2  navpage" type="button">Rejestracja</button>
               </a>
-            </form>';}
-            else{
+            </form>';
+            } else {
               echo '<form class="container-fluid justify-content-start navpage_login  navpage_register">
               <a href="../scripts/wylogowanie.php">
                 <button class="btn btn-outline-danger me-2  navpage" type="button">Wyloguj</button>
@@ -76,48 +74,42 @@
 
   <!-- JavaScript do Bootstrapa -->
   <!-- ------------------------------------------------------------------------------------------------------------------------ -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <!-- ------------------------------------------------------------------------------------------------------------------------ -->
   <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "library";
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "library";
 
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-        }
+  // Nawiązanie połączenia
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  // Sprawdzenie połączenia
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
 
-        $sql = "SELECT  * FROM Article
+  $sql = "SELECT  * FROM Article
         ORDER BY articleId DESC
         LIMIT 3";
-        $result = $conn->query($sql);
-        
-        while($row = $result->fetch_assoc()) {
-                echo "<div class='article-div'>";
-                    //id ksiazki
-                    echo "<h1>".$row["title"]."</h1>";
-                    echo "<h2>".$row["subtitle"]."</h2>";
-                    echo "<form action='../scripts/artykul.php' method='get'>";
-                    echo "<input type='hidden' name='article_id' value='".$row['articleId']."'>";
-                    echo '<button type="submit" class="btn btn-primary read_more">Czytaj dalej</button>';
-                    echo "<hr>";
-                    echo "</form>";
-                echo "</div>";
-        }
-        
-        $conn->close();
+  $result = $conn->query($sql);
+
+  while ($row = $result->fetch_assoc()) {
+    echo "<div class='article-div'>";
+    //id ksiazki
+    echo "<h1>" . $row["title"] . "</h1>";
+    echo "<h2>" . $row["subtitle"] . "</h2>";
+    echo "<form action='../scripts/artykul.php' method='get'>";
+    echo "<input type='hidden' name='article_id' value='" . $row['articleId'] . "'>";
+    echo '<button type="submit" class="btn btn-primary read_more">Czytaj dalej</button>';
+    echo "<hr>";
+    echo "</form>";
+    echo "</div>";
+  }
+
+  $conn->close();
   ?>
   <!-- Footer strony -->
   <footer class="site-footer">
@@ -152,23 +144,8 @@
       </div>
     </div>
   </footer>
-  <script>
-    // Automatic Slideshow - change image every 4 seconds
-    var myIndex = 0;
-    carousel();
-
-    function carousel() {
-      var i;
-      var x = document.getElementsByClassName("mySlides");
-      for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
-      }
-      myIndex++;
-      if (myIndex > x.length) { myIndex = 1 }
-      x[myIndex - 1].style.display = "block";
-      setTimeout(carousel, 5000);
-    }
-  </script>
+  <!-- Wywołanie skryptku karuzeli obrazkowej -->
+  <script src="../scripts/carousel.js" type="text/javascript"></script>
 </body>
 
 </html>
